@@ -55,7 +55,7 @@ export const siteConfig: SiteConfig = {
     { label: "Skills", href: "#skills", path: "skills" },
     { label: "Projects", href: "#projects", path: "projects" },
     { label: "GitHub", href: "#github", path: "github" },
-    { label: "Milestones", href: "#milestones", path: "milestones" },
+    { label: "Certifications", href: "#milestones", path: "milestones" },
     { label: "Contact", href: "#contact", path: "contact" },
   ],
 };
