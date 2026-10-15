@@ -1,7 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { siteConfig } from "@/data/site-config";
+import { getRecruitmentStatusText, getRecruitmentPlaceholder } from "@/lib/date-utils";
 import { Mail, Copy, Check, ExternalLink, Send, Terminal, Code2, Linkedin, FileText } from "lucide-react";
 import { motion } from "motion/react";
 
@@ -16,6 +17,23 @@ export default function Contact() {
   const [charCount, setCharCount] = useState(0);
   const [submitting, setSubmitting] = useState(false);
   const [feedback, setFeedback] = useState<string | null>(null);
+
+  const [recruitmentStatus, setRecruitmentStatus] = useState<string>(() =>
+    getRecruitmentStatusText()
+  );
+  const [recruitmentPlaceholder, setRecruitmentPlaceholder] = useState<string>(() =>
+    getRecruitmentPlaceholder()
+  );
+
+  useEffect(() => {
+    const update = () => {
+      setRecruitmentStatus(getRecruitmentStatusText());
+      setRecruitmentPlaceholder(getRecruitmentPlaceholder());
+    };
+    update();
+    const interval = setInterval(update, 60000);
+    return () => clearInterval(interval);
+  }, []);
 
   const handleCopyEmail = () => {
     navigator.clipboard.writeText(siteConfig.email).then(() => {
@@ -84,7 +102,7 @@ export default function Contact() {
                 CURRENT RECRUITMENT STATUS
               </span>
               <p className="font-headline text-base text-white font-semibold">
-                Available for Summer 2025 Internships &amp; Applied AI Collaborations
+                {recruitmentStatus}
               </p>
               <p className="font-body text-xs text-on-surface-variant leading-relaxed">
                 Quick response guarantee for technical inquiries, engineering opportunities, and open source discussions.
@@ -266,7 +284,7 @@ export default function Contact() {
                   required
                   value={formData.subject}
                   onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
-                  placeholder="Summer 2025 Internship Opportunity / Project Collaboration"
+                  placeholder={recruitmentPlaceholder}
                   className="w-full px-4 py-2.5 rounded-lg bg-surface-container-lowest border border-white/10 text-white font-body text-xs focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all placeholder:text-outline-variant"
                 />
               </div>

@@ -9,7 +9,7 @@ import {
   CertificationCategory,
   certificationCategories,
 } from "@/data/certifications";
-import { milestones, Milestone } from "@/data/achievements";
+import { milestones, Milestone, getDynamicMilestones } from "@/data/achievements";
 import {
   Award,
   CheckCircle,
@@ -51,9 +51,16 @@ const CATEGORY_STYLES: Record<
 
 export default function Achievements() {
   const [activeTab, setActiveTab] = useState<ActiveTab>("All");
+  const [dynamicMilestones, setDynamicMilestones] = useState<Milestone[]>(() =>
+    getDynamicMilestones()
+  );
   const [selectedCertificate, setSelectedCertificate] = useState<Certification | Milestone | null>(
     null
   );
+
+  useEffect(() => {
+    setDynamicMilestones(getDynamicMilestones(new Date()));
+  }, []);
 
   // Close modal on Escape key
   useEffect(() => {
@@ -324,7 +331,7 @@ export default function Achievements() {
         {/* Content View: Engineering Milestones Timeline (Preserved) */}
         {activeTab === "Milestones" && (
           <div className="relative pl-6 md:pl-10 border-l border-white/10 space-y-space-xl">
-            {milestones.map((item, index) => {
+            {dynamicMilestones.map((item, index) => {
               const hasCertificateImage = Boolean(item.certificateImage);
               return (
                 <motion.div
@@ -338,9 +345,21 @@ export default function Achievements() {
 
                   <div className="p-space-lg rounded-2xl bg-surface-container-low border border-white/10 hover:border-secondary/40 transition-all duration-300 shadow-lg">
                     <div className="flex flex-wrap items-center justify-between gap-2 mb-space-xs">
-                      <span className="font-terminal-tag text-[10px] px-2.5 py-0.5 rounded border font-bold uppercase tracking-wider bg-secondary-container/20 border-secondary/30 text-secondary">
-                        {item.categoryTag}
-                      </span>
+                      <div className="flex items-center gap-2">
+                        <span className="font-terminal-tag text-[10px] px-2.5 py-0.5 rounded border font-bold uppercase tracking-wider bg-secondary-container/20 border-secondary/30 text-secondary">
+                          {item.categoryTag}
+                        </span>
+                        {item.status === "in-progress" ? (
+                          <span className="px-2 py-0.5 rounded font-mono text-[10px] bg-tertiary/15 text-tertiary border border-tertiary/30 font-semibold flex items-center gap-1">
+                            <span className="w-1.5 h-1.5 rounded-full bg-tertiary animate-pulse" />
+                            IN PROGRESS
+                          </span>
+                        ) : (
+                          <span className="px-2 py-0.5 rounded font-mono text-[10px] bg-surface-container-highest text-outline border border-white/10 font-semibold">
+                            COMPLETED
+                          </span>
+                        )}
+                      </div>
                       <span className="font-code-inline text-[11px] text-outline font-mono">
                         {item.date}
                       </span>
