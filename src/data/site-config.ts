@@ -45,7 +45,7 @@ export const siteConfig: SiteConfig = {
   githubUrl: "https://github.com/ASingha165",
   // Configurable LinkedIn URL (defaults to user's profile path or placeholder if unconfigured)
   linkedinUrl: process.env.NEXT_PUBLIC_LINKEDIN_URL || "https://www.linkedin.com/in/ankit-singha-67475a358",
-  email: "ankitsingha.dev@gmail.com",
+  email: "singhaankit165@gmail.com",
   resumeUrl: "/resume.pdf",
   avatarUrl: "/images/profile.jpg",
   logoUrl: "/images/logo.png",

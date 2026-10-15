@@ -36,18 +36,18 @@ export default function Contact() {
     setFeedback("Preparing transmission payload...");
 
     setTimeout(() => {
-      setFeedback("Transmitting directly to mail client...");
+      setFeedback("Launching default email application...");
       const mailtoUrl = `mailto:${siteConfig.email}?subject=${encodeURIComponent(
         `[Portfolio Inquiry] ${formData.subject || "Collaboration"}`
       )}&body=${encodeURIComponent(
-        `Sender Name: ${formData.name}\nSender Email: ${formData.email}\n\nMessage:\n${formData.message}`
+        `Sender Name: ${formData.name}\nSender Email: ${formData.email}\nTopic / Objective: ${formData.subject}\n\nMessage:\n${formData.message}`
       )}`;
 
       window.location.href = mailtoUrl;
 
       setTimeout(() => {
         setSubmitting(false);
-        setFeedback("Transmission triggered via client protocol.");
+        setFeedback("Draft prepared in email client — ready to send.");
       }, 1000);
     }, 600);
   };
