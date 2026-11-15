@@ -66,6 +66,18 @@ export const certifications: Certification[] = [
   // CATEGORY 3: HACKATHONS AND PARTICIPATION
   // ==========================================
   {
+    id: "skillup-hackathon-2026",
+    title: "Certificate of Excellence — SkillUp Hackathon 2026",
+    issuingOrganization: "SkillUp Online",
+    issueDate: "2026-10",
+    category: "Hackathon & Participation",
+    description:
+      "Received a Certificate of Excellence as a regional finalist with Team DEX at the SkillUp Hackathon, held in collaboration with IBM SkillsBuild.",
+    featured: false,
+    verificationNote:
+      "Listed on Ankit Singha's public LinkedIn profile: https://in.linkedin.com/in/ankit-singha-67475a358. The regional finalist result was corroborated by teammate Monodip Das: https://in.linkedin.com/in/monodip-das-357958317.",
+  },
+  {
     id: "go4youth-teri-2026",
     title: "GREEN Olympiad for Youth (GO4Youth) 2026",
     issuingOrganization: "TERI (The Energy and Resources Institute)",
